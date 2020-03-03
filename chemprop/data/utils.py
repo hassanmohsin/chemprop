@@ -361,7 +361,7 @@ def validate_data(data_path: str) -> Set[str]:
     for smile in tqdm(smiles, total=len(smiles)):
         mol = Chem.MolFromSmiles(smile)
         if mol is None:
-            errors.add('Data includes an invalid SMILES.')
+            errors.add('Data includes an invalid SMILES. ' + smile)
 
     # Validate targets
     num_tasks_set = set(len(mol_targets) for mol_targets in targets)
