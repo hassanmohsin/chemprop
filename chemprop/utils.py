@@ -5,7 +5,7 @@ from typing import Callable, List, Tuple, Union
 from argparse import Namespace
 
 from sklearn.metrics import auc, mean_absolute_error, mean_squared_error, precision_recall_curve, r2_score,\
-    roc_auc_score, accuracy_score, log_loss
+    roc_auc_score, accuracy_score, log_loss, classification_report, f1_score
 import torch
 import torch.nn as nn
 from torch.optim import Adam, Optimizer
@@ -205,6 +205,38 @@ def mse(targets: List[float], preds: List[float]) -> float:
     return mean_squared_error(targets, preds)
 
 
+def class_report(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
+    """
+    Computes the classification score.
+
+    :param targets: A list of targets.
+    :param preds: A list of prediction.
+    :return: Classification score
+    """
+    if type(preds[0]) == list: # multiclass
+        hard_preds = [p.index(max(p)) for p in preds]
+    else:
+        hard_preds = [1 if p > threshold else 0 for p in preds] # binary prediction
+    return classification_report(targets, hard_preds)
+
+
+def f1(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
+    """
+    Computers the f1 score.
+
+
+    :param targets: A list of targets.
+    :param preds: A list of prediction.
+    :return: F1 score.
+    """
+    if type(preds[0]) == list: # multiclass
+        hard_preds = [p.index(max(p)) for p in preds]
+    else: 
+        hard_preds = [1 if p > threshold else 0 for p in preds] # binary prediction
+
+    return f1_score(targets, hard_preds, average='samples')
+
+
 def accuracy(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
     """
     Computes the accuracy of a binary prediction task using a given threshold for generating hard predictions.
@@ -252,6 +284,12 @@ def get_metric_func(metric: str) -> Callable[[Union[List[int], List[float]], Lis
     
     if metric == 'cross_entropy':
         return log_loss
+
+    if metric == 'f1':
+        return f1
+
+    if metric == 'classification_report':
+        return clsasification_report
 
     raise ValueError(f'Metric "{metric}" not supported.')
 
