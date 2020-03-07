@@ -233,8 +233,7 @@ def f1(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
         hard_preds = [p.index(max(p)) for p in preds]
     else: 
         hard_preds = [1 if p > threshold else 0 for p in preds] # binary prediction
-
-    return f1_score(targets, hard_preds, average='samples')
+    return f1_score(targets, hard_preds, average='weighted')
 
 
 def accuracy(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
