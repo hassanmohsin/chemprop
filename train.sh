@@ -25,8 +25,7 @@ python train.py --data_path $data_path \
         --multiclass_num_classes $num_classes \
         --num_folds $num_folds \
         --gpu $gpu \
+        --save_smiles_split \
         --quiet
-        #--log_frequency $log_frequency
-
 
 #python train.py --data_path $1 --dataset_type classification --save_dir $2 --split_type scaffold_balanced --ensemble_size 5 --config_path $3 --epochs 200 --batch_size 16 --multiclass_num_classes 1 --num_folds 5 --gpu 0
