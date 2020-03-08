@@ -1,4 +1,4 @@
-smiles,f1_scores
+protein,f1_score
 urotensin_2_receptor,0.333333
 vascular_cell_adhesion_protein_1,0.48585
 vasopressin_v2_receptor,0.419506
