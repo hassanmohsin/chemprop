@@ -288,7 +288,7 @@ def get_metric_func(metric: str) -> Callable[[Union[List[int], List[float]], Lis
         return f1
 
     if metric == 'classification_report':
-        return clsasification_report
+        return classification_report
 
     raise ValueError(f'Metric "{metric}" not supported.')
 
