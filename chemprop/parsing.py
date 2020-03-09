@@ -116,7 +116,7 @@ def add_train_args(parser: ArgumentParser):
                              'When `num_folds` > 1, the first fold uses this seed and all'
                              'subsequent folds add 1 to the seed.')
     parser.add_argument('--metric', type=str, default=None,
-                        choices=['auc', 'f1', 'prc-auc', 'rmse', 'mae', 'mse', 'r2', 'accuracy', 'cross_entropy'],
+                        choices=['auc', 'f1', 'prc-auc', 'rmse', 'mae', 'mse', 'r2', 'accuracy', 'cross_entropy', 'class_report', 'cohen_k'],
                         help='Metric to use during evaluation.'
                              'Note: Does NOT affect loss function used during training'
                              '(loss is determined by the `dataset_type` argument).'
@@ -272,9 +272,9 @@ def modify_train_args(args: Namespace):
         else:
             args.metric = 'rmse'
 
-    if not ((args.dataset_type == 'classification' and args.metric in ['auc', 'f1', 'prc-auc', 'accuracy']) or
+    if not ((args.dataset_type == 'classification' and args.metric in ['auc', 'f1', 'prc-auc', 'accuracy', 'class_report', 'cohen_k']) or
             (args.dataset_type == 'regression' and args.metric in ['rmse', 'mae', 'mse', 'r2']) or
-            (args.dataset_type == 'multiclass' and args.metric in ['cross_entropy', 'f1', 'accuracy'])):
+            (args.dataset_type == 'multiclass' and args.metric in ['cross_entropy', 'f1', 'accuracy', 'class_report', 'cohen_k'])):
         raise ValueError(f'Metric "{args.metric}" invalid for dataset type "{args.dataset_type}".')
 
     args.minimize_score = args.metric in ['rmse', 'mae', 'mse', 'cross_entropy']

@@ -4,8 +4,8 @@ import os
 from typing import Callable, List, Tuple, Union
 from argparse import Namespace
 
-from sklearn.metrics import auc, mean_absolute_error, mean_squared_error, precision_recall_curve, r2_score,\
-    roc_auc_score, accuracy_score, log_loss, classification_report, f1_score
+from sklearn.metrics import auc, mean_absolute_error, mean_squared_error, precision_recall_curve, r2_score, \
+    roc_auc_score, accuracy_score, log_loss, classification_report, f1_score, cohen_kappa_score
 import torch
 import torch.nn as nn
 from torch.optim import Adam, Optimizer
@@ -217,7 +217,7 @@ def class_report(targets: List[int], preds: List[float], threshold: float = 0.5)
         hard_preds = [p.index(max(p)) for p in preds]
     else:
         hard_preds = [1 if p > threshold else 0 for p in preds] # binary prediction
-    return classification_report(targets, hard_preds)
+    return classification_report(targets, hard_preds, output_dict = True)['1.0']['f1-score']
 
 
 def f1(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
@@ -234,6 +234,21 @@ def f1(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
     else: 
         hard_preds = [1 if p > threshold else 0 for p in preds] # binary prediction
     return f1_score(targets, hard_preds, average='weighted')
+
+def cohen_k(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
+    """
+        Computers the cohen K. score.
+        
+        
+        :param targets: A list of targets.
+        :param preds: A list of prediction.
+        :return: Cohen K score.
+        """
+    if type(preds[0]) == list: # multiclass
+        hard_preds = [p.index(max(p)) for p in preds]
+    else:
+        hard_preds = [1 if p > threshold else 0 for p in preds] # binary prediction
+    return cohen_kappa_score(targets, hard_preds)
 
 
 def accuracy(targets: List[int], preds: List[float], threshold: float = 0.5) -> float:
@@ -287,8 +302,11 @@ def get_metric_func(metric: str) -> Callable[[Union[List[int], List[float]], Lis
     if metric == 'f1':
         return f1
 
-    if metric == 'classification_report':
-        return classification_report
+    if metric == 'class_report':
+        return class_report
+
+    if metric == 'cohen_k':
+        return cohen_k
 
     raise ValueError(f'Metric "{metric}" not supported.')
 
