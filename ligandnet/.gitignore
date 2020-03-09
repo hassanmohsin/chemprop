@@ -1,5 +1,6 @@
 *.csv
 *.pckl
+*.pkl
 *.pt
 events.*
 !f1_scores.csv
