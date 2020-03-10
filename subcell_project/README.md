@@ -5,7 +5,7 @@
 * Run `train_mpnn.sh` to train the model using the optimized hyperparameters. Example: `bash train_mpnn.sh <subcell_location_name>`
 	- Example command: `bash train_mpnn.sh actin_filaments` 
 * Run `predict_mpnn.sh` to make predictions on the trained models. Example: `bash predict_mpnn.sh <subcell_location_name>`
-        - Example command: `bash predict_mpnn.sh actin_filaments`
+	- Example command: `bash predict_mpnn.sh actin_filaments`
 
 ### Tuning, Training and Predictions in queues
 * Optimize hyperparamter and generate config files 
