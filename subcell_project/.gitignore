@@ -3,3 +3,4 @@ events*
 !*.pt
 !*.csv
 .gitkeep
+!*.log
