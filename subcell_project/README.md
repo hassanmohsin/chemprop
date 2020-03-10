@@ -1,5 +1,5 @@
 ## Workflow
-### Train
+### Tune, Train and Predict (NOT IN queues)
 * Run `hyperopt.sh` to optimize hyperparameters. Example: `bash hyperopt.sh <subcell_location_name>`
 	- Example command: `bash hyperopt.sh actin_filaments`
 * Run `train_mpnn.sh` to train the model using the optimized hyperparameters. Example: `bash train_mpnn.sh <subcell_location_name>`
