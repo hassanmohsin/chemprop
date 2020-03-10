@@ -25,8 +25,8 @@ python ../sklearn_train.py --data_path $data_path \
         --save_smiles_split \
         --quiet \
         --metric $metric \
-	--radius 3 \
-	--num_bits 1024 \
-	--model_type "random_forest" \
-	--num_trees 500
+	    --radius 3 \
+	    --num_bits 1024 \
+	    --model_type "random_forest" \
+	    --num_trees 500
 
