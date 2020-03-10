@@ -1,6 +1,6 @@
 ## Workflow
 ### Train
-* Run `train.sh` to train all 40 models
+* Run `bash train.sh` to train all 40 models
 
 ### Predict
-* Run `predict.sh` to save predictions
+* Run `bash predict.sh` to save predictions
