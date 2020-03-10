@@ -1,7 +1,0 @@
-Fold 0
-Model 0 best validation cohen_k = 0.895120 on epoch 29
-Model 0 test cohen_k = 0.859391
-Ensemble test cohen_k = 0.859391
-1-fold cross validation
-Seed 0 ==> test cohen_k = 0.859391
-Overall test cohen_k = 0.859391 +/- 0.000000
